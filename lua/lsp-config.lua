@@ -11,11 +11,16 @@ saga.init_lsp_saga {
 }
 
 lspconfig.tsserver.setup {}
+lspconfig.solargraph.setup {}
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 require('lspconfig')['tsserver'].setup {
   capabilities = capabilities
+}
+
+require('lspconfig')['solargraph'].setup {
+  capabilities=capabilities
 }
 
 require'nvim-treesitter.configs'.setup {

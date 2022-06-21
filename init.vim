@@ -9,6 +9,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'glepnir/lspsaga.nvim'
   Plug 'kyazdani42/nvim-tree.lua'
   Plug 'machakann/vim-sandwich'
+  Plug 'tpope/vim-rails'
 
   " snippet tool 
   Plug 'hrsh7th/vim-vsnip'
@@ -25,6 +26,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
+
 call plug#end()
 "Config Section
 
@@ -32,9 +34,12 @@ lua require("lsp-config")
 lua require("nvim-cmp-config")
 lua require("telescope-config")
 set completeopt=menu,menuone,noselect
+
+"lspsaga
 nnoremap <silent>K :Lspsaga hover_doc<CR>
 inoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
 nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
+nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
 
 " Telescope Settings
 nnoremap <silent> <C-p> <cmd>Telescope find_files<cr>
