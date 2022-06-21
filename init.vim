@@ -8,6 +8,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'neovim/nvim-lspconfig'
   Plug 'glepnir/lspsaga.nvim'
   Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'machakann/vim-sandwich'
 
   " snippet tool 
   Plug 'hrsh7th/vim-vsnip'
