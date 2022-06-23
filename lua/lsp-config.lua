@@ -9,9 +9,24 @@ saga.init_lsp_saga {
   infor_sign = '',
   border_style = "round",
 }
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end  -- Mappings.
+  local opts = { noremap=true, silent=true } 
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  --...
+end
 
-lspconfig.tsserver.setup {}
-lspconfig.solargraph.setup {}
+lspconfig.tsserver.setup {
+  on_attach=on_attach
+}
+lspconfig.solargraph.setup {
+  on_attach=on_attach
+}
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
