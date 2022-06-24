@@ -32,8 +32,13 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
 
+  " Status line
+  Plug 'nvim-lualine/lualine.nvim'
+
   " color theme
   Plug 'Shatur/neovim-ayu'
+  Plug 'bluz71/vim-nightfly-guicolors'
+  Plug 'rafalbromirski/vim-aurora'
 call plug#end()
 " Config Section
 " Vim Settings
@@ -42,12 +47,13 @@ set tabstop=2
 set shiftwidth=2
 set number
 set listchars+=space:␣
-
+let mapleader=","
 " Plugins
 lua require("lsp-config")
 lua require("nvim-cmp-config")
 lua require("telescope-config")
 lua require("nvim-tree-config")
+lua require("lualine-config")
 
 " Autocomplete
 set completeopt=menu,menuone,noselect
@@ -66,7 +72,10 @@ nnoremap <silent> <C-p> <cmd>Telescope find_files<cr>
 nnoremap <silent> <C-f> <cmd>Telescope live_grep<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
 nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
-
+nnoremap <silent> <leader>lr <cmd>Telescope lsp_references<cr>
+nnoremap <silent> <leader>lt <cmd>Telescope lsp_type_definitions<cr>
 " Colorscheme
-colorscheme ayu
+set termguicolors
+set background=dark
+colorscheme aurora
 

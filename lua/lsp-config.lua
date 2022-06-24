@@ -24,6 +24,7 @@ end
 lspconfig.tsserver.setup {
   on_attach=on_attach
 }
+
 lspconfig.solargraph.setup {
   on_attach=on_attach
 }
@@ -39,6 +40,12 @@ require('lspconfig')['solargraph'].setup {
 }
 
 require'nvim-treesitter.configs'.setup {
+  context_commentstring = true,
+  ensure_installed="all",
+  highlight={
+    enable=true,
+    additional_vim_regex_highlighting = false,
+  },
   textobjects = {
     select = {
       enable = true,
