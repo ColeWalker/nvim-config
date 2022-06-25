@@ -8,6 +8,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'neovim/nvim-lspconfig'
   Plug 'glepnir/lspsaga.nvim'
   Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'voldikss/vim-floaterm'
   
   " Actions
   Plug 'machakann/vim-sandwich'
