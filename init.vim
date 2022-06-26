@@ -69,7 +69,7 @@ nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()
 vnoremap <silent><leader>ca :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
 
 " Telescope Settings
-nnoremap <silent> <C-p> <cmd>Telescope find_files<cr>
+nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true<cr>
 nnoremap <silent> <C-f> <cmd>Telescope live_grep<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
 nnoremap <silent> ;; <cmd>Telescope help_tags<cr>

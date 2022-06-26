@@ -4,6 +4,7 @@ require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
     adaptive_size = true,
+    side="left",
     mappings = {
       list = {
         { key = "u", action = "dir_up" },
@@ -14,7 +15,7 @@ require("nvim-tree").setup({
     group_empty = true,
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
   },
 })
 
