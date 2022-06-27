@@ -1,21 +1,32 @@
 call plug#begin("~/.vim/plugged")
   " Plugin Section
+  " LSP / Syntax highlighting / formatting
   Plug 'jose-elias-alvarez/null-ls.nvim'
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-  Plug 'kyazdani42/nvim-web-devicons'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'neovim/nvim-lspconfig'
   Plug 'glepnir/lspsaga.nvim'
-  Plug 'kyazdani42/nvim-tree.lua'
+
+  " Floating Terminal
   Plug 'voldikss/vim-floaterm'
+
+  " File tree
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'kyazdani42/nvim-tree.lua'
   
   " Actions
   Plug 'machakann/vim-sandwich'
   Plug 'tpope/vim-commentary' 
 
+  " Smooth scroll
+  Plug 'karb94/neoscroll.nvim'
+
   " Ruby
   Plug 'tpope/vim-rails'
+
+  " Testing
+  Plug 'vim-test/vim-test'
 
   " snippet tool 
   Plug 'hrsh7th/vim-vsnip'
@@ -55,6 +66,7 @@ lua require("nvim-cmp-config")
 lua require("telescope-config")
 lua require("nvim-tree-config")
 lua require("lualine-config")
+lua require('neoscroll').setup()
 
 " Autocomplete
 set completeopt=menu,menuone,noselect
