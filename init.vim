@@ -71,18 +71,18 @@ lua require('neoscroll').setup()
 " Autocomplete
 set completeopt=menu,menuone,noselect
 
-"lspsaga
-nnoremap <silent>K :Lspsaga hover_doc<CR>
-inoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
-nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
-nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
-nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
-nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
-vnoremap <silent><leader>ca :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
+""lspsaga
+"nnoremap <silent>K :Lspsaga hover_doc<CR>
+"inoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
+"nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
+"nnoremap <silent>gr <cmd>lua require('lspsaga.rename')<CR>
+"nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp')<CR>
+"nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction')<CR>
+"vnoremap <silent><leader>ca :<C-U>lua require('lspsaga.codeaction')<CR>
 
 " Telescope Settings
 nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true<cr>
-nnoremap <silent> <C-f> <cmd>Telescope live_grep<cr>
+nnoremap <silent> <C-f> <cmd>Telescope live_grep hidden=true<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
 nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
 nnoremap <silent> <leader>lr <cmd>Telescope lsp_references<cr>

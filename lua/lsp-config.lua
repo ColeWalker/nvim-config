@@ -3,10 +3,7 @@ local saga = require 'lspsaga'
 local cmp = require'cmp'
 
 saga.init_lsp_saga {
-  error_sign = '',
-  warn_sign = '',
-  hint_sign = '',
-  infor_sign = '',
+  diagnostic_header={ '', '', '', ''},
   border_style = "round",
 }
 local on_attach = function(client, bufnr)
