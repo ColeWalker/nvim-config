@@ -1,11 +1,6 @@
 local lspconfig = require("lspconfig")
-local saga = require 'lspsaga'
 local cmp = require'cmp'
 
-saga.init_lsp_saga {
-  diagnostic_header={ '', '', '', ''},
-  border_style = "round",
-}
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end  -- Mappings.
   local opts = { noremap=true, silent=true } 

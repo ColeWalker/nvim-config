@@ -6,7 +6,6 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'neovim/nvim-lspconfig'
-  Plug 'glepnir/lspsaga.nvim'
 
   " Floating Terminal
   Plug 'voldikss/vim-floaterm'
@@ -81,7 +80,7 @@ set completeopt=menu,menuone,noselect
 "vnoremap <silent><leader>ca :<C-U>lua require('lspsaga.codeaction')<CR>
 
 " Telescope Settings
-nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true<cr>
+nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true ignore=true<cr>
 nnoremap <silent> <C-f> <cmd>Telescope live_grep hidden=true<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
 nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
