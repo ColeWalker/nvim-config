@@ -70,14 +70,14 @@ lua require('neoscroll').setup()
 " Autocomplete
 set completeopt=menu,menuone,noselect
 
-""lspsaga
-"nnoremap <silent>K :Lspsaga hover_doc<CR>
-"inoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
-"nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
-"nnoremap <silent>gr <cmd>lua require('lspsaga.rename')<CR>
-"nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp')<CR>
-"nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction')<CR>
-"vnoremap <silent><leader>ca :<C-U>lua require('lspsaga.codeaction')<CR>
+"lspsaga
+nnoremap <silent>K <Cmd>LspHover<CR>
+inoremap <silent> <C-k> <Cmd>LspSignatureHelp<CR>
+" nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
+nnoremap <silent>gr <cmd>LspRename<CR>
+nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp')<CR>
+nnoremap <silent><leader>ca <cmd>LspCodeAction<CR>
+vnoremap <silent><leader>ca :<C-U><cmd>LspCodeAction<CR>
 
 " Telescope Settings
 nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true ignore=true<cr>
