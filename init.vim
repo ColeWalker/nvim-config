@@ -7,6 +7,9 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'neovim/nvim-lspconfig'
 
+  " Git
+  Plug 'akinsho/git-conflict.nvim'
+
   " Floating Terminal
   Plug 'voldikss/vim-floaterm'
 
@@ -65,6 +68,7 @@ lua require("nvim-cmp-config")
 lua require("telescope-config")
 lua require("nvim-tree-config")
 lua require("lualine-config")
+lua require("git-conflict").setup()
 lua require('neoscroll').setup()
 
 " Autocomplete
@@ -86,6 +90,8 @@ nnoremap <silent> \\ <cmd>Telescope buffers<cr>
 nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
 nnoremap <silent> <leader>lr <cmd>Telescope lsp_references<cr>
 nnoremap <silent> <leader>lt <cmd>Telescope lsp_type_definitions<cr>
+" Nvim-tree Settings
+nnoremap <silent> <leader>nt <cmd>NvimTreeToggle<cr>
 " Colorscheme
 set termguicolors
 set background=dark
