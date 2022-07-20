@@ -6,6 +6,10 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'neovim/nvim-lspconfig'
+  Plug 'jbgutierrez/vim-better-comments'  
+
+  " Text objects
+  Plug 'michaeljsmith/vim-indent-object'
 
   " Git
   Plug 'akinsho/git-conflict.nvim'
@@ -40,6 +44,9 @@ call plug#begin("~/.vim/plugged")
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
+  
+  " Navigation
+  Plug 'ThePrimeagen/harpoon'
 
   " telescope
   Plug 'nvim-lua/popup.nvim'
@@ -48,6 +55,9 @@ call plug#begin("~/.vim/plugged")
 
   " Status line
   Plug 'nvim-lualine/lualine.nvim'
+
+  " Which-key
+  Plug 'liuchengxu/vim-which-key'
 
   " color theme
   Plug 'Shatur/neovim-ayu'
@@ -77,6 +87,7 @@ set completeopt=menu,menuone,noselect
 "lspsaga
 nnoremap <silent>K <Cmd>LspHover<CR>
 inoremap <silent> <C-k> <Cmd>LspSignatureHelp<CR>
+nnoremap <silent> <C-k> <Cmd>LspDiagLine<CR>
 " nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
 nnoremap <silent>gr <cmd>LspRename<CR>
 nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp')<CR>
@@ -92,6 +103,12 @@ nnoremap <silent> <leader>lr <cmd>Telescope lsp_references<cr>
 nnoremap <silent> <leader>lt <cmd>Telescope lsp_type_definitions<cr>
 " Nvim-tree Settings
 nnoremap <silent> <leader>nt <cmd>NvimTreeToggle<cr>
+" Harpoon Settings
+nnoremap <silent> <leader>hm <cmd>lua require("harpoon.mark").add_file()<cr>
+nnoremap <silent> <leader>hv <cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>
+nnoremap <silent> <leader>hl <cmd>lua require("harpoon.ui").nav_next()<cr>
+nnoremap <silent> <leader>hh <cmd>lua require("harpoon.ui").nav_prev()<cr>
+
 " Colorscheme
 set termguicolors
 set background=dark
