@@ -7,6 +7,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'neovim/nvim-lspconfig'
   Plug 'jbgutierrez/vim-better-comments'  
+  Plug 'RRethy/vim-illuminate'
 
   " Text objects
   Plug 'michaeljsmith/vim-indent-object'
@@ -47,6 +48,7 @@ call plug#begin("~/.vim/plugged")
   
   " Navigation
   Plug 'ThePrimeagen/harpoon'
+  Plug 'unblevable/quick-scope' 
 
   " telescope
   Plug 'nvim-lua/popup.nvim'
@@ -71,6 +73,11 @@ set tabstop=2
 set shiftwidth=2
 set number
 set listchars+=space:␣
+set linebreak
+set incsearch
+set ignorecase
+set smartcase
+
 let mapleader=","
 " Plugins
 lua require("lsp-config")
@@ -81,18 +88,24 @@ lua require("lualine-config")
 lua require("git-conflict").setup()
 lua require('neoscroll').setup()
 
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
 " Autocomplete
 set completeopt=menu,menuone,noselect
 
 "lspsaga
-nnoremap <silent>K <Cmd>LspHover<CR>
+nnoremap <silent>K <Cmd>lua vim.lsp.buf.hover()<CR>
 inoremap <silent> <C-k> <Cmd>LspSignatureHelp<CR>
 nnoremap <silent> <C-k> <Cmd>LspDiagLine<CR>
 " nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
 nnoremap <silent>gr <cmd>LspRename<CR>
 nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp')<CR>
-nnoremap <silent><leader>ca <cmd>LspCodeAction<CR>
-vnoremap <silent><leader>ca :<C-U><cmd>LspCodeAction<CR>
+nnoremap <silent><leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent><leader>oa <cmd>TSLspOrganize<CR>
+nnoremap <silent><leader>ia <cmd>TSLspImportAll<CR>
+nnoremap <silent>gl <cmd>LspDiagNext<CR>
+nnoremap <silent>gh <cmd>LspDiagPrev<CR>
+vnoremap <silent><leader>ca :<C-U><cmd>lua vim.lsp.buf.code_action()<CR>
 
 " Telescope Settings
 nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true ignore=true<cr>
