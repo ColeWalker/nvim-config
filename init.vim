@@ -8,7 +8,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'neovim/nvim-lspconfig'
   Plug 'jbgutierrez/vim-better-comments'  
   Plug 'RRethy/vim-illuminate'
-
+  Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
   " Text objects
   Plug 'michaeljsmith/vim-indent-object'
 
@@ -87,6 +87,7 @@ lua require("nvim-tree-config")
 lua require("lualine-config")
 lua require("git-conflict").setup()
 lua require('neoscroll').setup()
+lua require('lspsaga').init_lsp_saga()
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
@@ -94,7 +95,7 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 set completeopt=menu,menuone,noselect
 
 "lspsaga
-nnoremap <silent>K <Cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent>K <Cmd>Lspsaga hover_doc<CR>
 inoremap <silent> <C-k> <Cmd>LspSignatureHelp<CR>
 nnoremap <silent> <C-k> <Cmd>LspDiagLine<CR>
 " nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
