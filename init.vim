@@ -12,6 +12,7 @@ call plug#begin("~/.vim/plugged")
   " Text objects
   Plug 'michaeljsmith/vim-indent-object'
 
+  Plug 'ptzz/lf.vim'
   " Git
   Plug 'akinsho/git-conflict.nvim'
 
@@ -49,6 +50,7 @@ call plug#begin("~/.vim/plugged")
   " Navigation
   Plug 'ThePrimeagen/harpoon'
   Plug 'unblevable/quick-scope' 
+  Plug 'ggandor/leap.nvim' 
 
   " telescope
   Plug 'nvim-lua/popup.nvim'
@@ -72,12 +74,13 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 set number
+set relativenumber             " Show relative line numbers
 set listchars+=space:␣
 set linebreak
 set incsearch
 set ignorecase
 set smartcase
-
+set signcolumn=yes
 let mapleader=","
 " Plugins
 lua require("lsp-config")
@@ -88,9 +91,10 @@ lua require("lualine-config")
 lua require("git-conflict").setup()
 lua require('neoscroll').setup()
 lua require('lspsaga').init_lsp_saga()
+lua require('leap').set_default_keymaps()
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
+"
 " Autocomplete
 set completeopt=menu,menuone,noselect
 
