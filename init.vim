@@ -1,14 +1,16 @@
 call plug#begin("~/.vim/plugged")
   " Plugin Section
   " LSP / Syntax highlighting / formatting
+  Plug 'neovim/nvim-lspconfig'
   Plug 'jose-elias-alvarez/null-ls.nvim'
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-treesitter/nvim-treesitter-context'
   Plug 'jbgutierrez/vim-better-comments'  
   Plug 'RRethy/vim-illuminate'
   Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+  
   " Text objects
   Plug 'michaeljsmith/vim-indent-object'
 
@@ -19,9 +21,10 @@ call plug#begin("~/.vim/plugged")
   " Floating Terminal
   Plug 'voldikss/vim-floaterm'
 
+  " Plug 'ruanyl/coverage.vim'
   " File tree
   Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'kyazdani42/nvim-tree.lua'
+  " Plug 'kyazdani42/nvim-tree.lua'
   
   " Actions
   Plug 'machakann/vim-sandwich'
@@ -63,6 +66,9 @@ call plug#begin("~/.vim/plugged")
   " Which-key
   Plug 'liuchengxu/vim-which-key'
 
+  " Test coverage
+  Plug 'andythigpen/nvim-coverage'
+
   " color theme
   Plug 'Shatur/neovim-ayu'
   Plug 'bluz71/vim-nightfly-guicolors'
@@ -81,19 +87,26 @@ set incsearch
 set ignorecase
 set smartcase
 set signcolumn=yes
+" set showtabline=2
+set laststatus=3
 let mapleader=","
+set foldmethod=indent
+set foldexpr=nvim_treesitter#foldexpr()
+set nofoldenable
+" set foldmethod=syntax
 " Plugins
 lua require("lsp-config")
 lua require("nvim-cmp-config")
 lua require("telescope-config")
-lua require("nvim-tree-config")
+" lua require("nvim-tree-config")
 lua require("lualine-config")
 lua require("git-conflict").setup()
 lua require('neoscroll').setup()
 lua require('lspsaga').init_lsp_saga()
 lua require('leap').set_default_keymaps()
+lua require("coverage").setup()
 
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+" let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 "
 " Autocomplete
 set completeopt=menu,menuone,noselect
@@ -106,7 +119,7 @@ nnoremap <silent> <C-k> <Cmd>LspDiagLine<CR>
 nnoremap <silent>gr <cmd>LspRename<CR>
 nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp')<CR>
 nnoremap <silent><leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent><leader>oa <cmd>TSLspOrganize<CR>
+nnoremap <silent><leader>oi <cmd>TSLspOrganize<CR>
 nnoremap <silent><leader>ia <cmd>TSLspImportAll<CR>
 nnoremap <silent>gl <cmd>LspDiagNext<CR>
 nnoremap <silent>gh <cmd>LspDiagPrev<CR>
@@ -126,9 +139,11 @@ nnoremap <silent> <leader>hm <cmd>lua require("harpoon.mark").add_file()<cr>
 nnoremap <silent> <leader>hv <cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>
 nnoremap <silent> <leader>hl <cmd>lua require("harpoon.ui").nav_next()<cr>
 nnoremap <silent> <leader>hh <cmd>lua require("harpoon.ui").nav_prev()<cr>
+nnoremap <Leader>o o<Esc>0"_D
+nnoremap <Leader>O O<Esc>0"_D
 
 " Colorscheme
 set termguicolors
 set background=dark
 colorscheme aurora
-
+" autocmd BufReadPost,FileReadPost * normal zR

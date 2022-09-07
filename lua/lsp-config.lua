@@ -32,7 +32,6 @@ end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 lspconfig.tsserver.setup {
-  capabilities = capabilities, 
   on_attach = function(client, bufnr) 
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
@@ -42,11 +41,17 @@ lspconfig.tsserver.setup {
     ts_utils.setup_client(client)
 
     on_attach(client, bufnr)
-  end
+  end,
+  capabilities = capabilities, 
 }
 
 lspconfig.solargraph.setup {
-  on_attach=on_attach,
+  on_attach=  function(client, bufnr) 
+    client.resolved_capabilities.document_formatting = false     
+    client.resolved_capabilities.document_range_formatting = false
+
+    on_attach(client,bufnr)
+  end,
   capabilities=capabilities
 }
 
