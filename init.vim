@@ -7,16 +7,18 @@ call plug#begin("~/.vim/plugged")
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'nvim-treesitter/nvim-treesitter-context'
-  Plug 'jbgutierrez/vim-better-comments'  
+  " Plug 'jbgutierrez/vim-better-comments'  
   Plug 'RRethy/vim-illuminate'
   Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
   
   " Text objects
   Plug 'michaeljsmith/vim-indent-object'
 
-  Plug 'ptzz/lf.vim'
+  " Plug 'ptzz/lf.vim'
+
   " Git
-  Plug 'akinsho/git-conflict.nvim'
+  " Plug 'akinsho/git-conflict.nvim'
+  Plug 'tpope/vim-fugitive'
 
   " Floating Terminal
   Plug 'voldikss/vim-floaterm'
@@ -73,6 +75,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'Shatur/neovim-ayu'
   Plug 'bluz71/vim-nightfly-guicolors'
   Plug 'rafalbromirski/vim-aurora'
+  Plug 'tiagovla/tokyodark.nvim'
 call plug#end()
 " Config Section
 " Vim Settings
@@ -100,7 +103,7 @@ lua require("nvim-cmp-config")
 lua require("telescope-config")
 " lua require("nvim-tree-config")
 lua require("lualine-config")
-lua require("git-conflict").setup()
+" lua require("git-conflict").setup()
 lua require('neoscroll').setup()
 lua require('lspsaga').init_lsp_saga()
 lua require('leap').set_default_keymaps()
@@ -143,7 +146,12 @@ nnoremap <Leader>o o<Esc>0"_D
 nnoremap <Leader>O O<Esc>0"_D
 
 " Colorscheme
+let g:tokyodark_transparent_background = 0
+" let g:tokyodark_enable_italic_comment = 1
+" let g:tokyodark_enable_italic = 1
+" let g:tokyodark_color_gamma = "1.0"
 set termguicolors
-set background=dark
-colorscheme aurora
+" set background=dark
+colorscheme tokyodark
+" colorscheme aurora
 " autocmd BufReadPost,FileReadPost * normal zR
