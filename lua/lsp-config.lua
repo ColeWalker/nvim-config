@@ -32,15 +32,22 @@ end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 lspconfig.tsserver.setup {
+ init_options = {
+   preferences = {
+     importModuleSpecifierPreference = "project-relative"
+   }
+  },
   on_attach = function(client, bufnr) 
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
+
 
     local ts_utils = require("nvim-lsp-ts-utils")
     ts_utils.setup({})
     ts_utils.setup_client(client)
 
     on_attach(client, bufnr)
+
   end,
   capabilities = capabilities, 
 }
@@ -97,7 +104,7 @@ null_ls.setup({
         null_ls.builtins.code_actions.eslint,
         null_ls.builtins.formatting.prettier,
         null_ls.builtins.diagnostics.rubocop,
-        null_ls.builtins.formatting.rubocop
+        null_ls.builtins.formatting.rubocop,
     },
     on_attach = on_attach,
 })
