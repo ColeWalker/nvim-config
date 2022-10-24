@@ -2,7 +2,7 @@
 
 ## Pre-requisites
 
-You will need `nvim` and `vim-plug` for this config.
+You will need `nvim` and `packer` for this config.
 
 ## Installation
 
