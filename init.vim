@@ -1,6 +1,6 @@
 " Config Section
 " Vim Settings
-lua require("./plugins")
+lua require("plugins")
 set expandtab
 set tabstop=2
 set shiftwidth=2
@@ -64,7 +64,7 @@ nnoremap <silent>gh <cmd>LspDiagPrev<CR>
 vnoremap <silent><leader>ca :<C-U><cmd>lua vim.lsp.buf.code_action()<CR>
 
 " Telescope Settings
-nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true ignore=true<cr>
+nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true<cr>
 nnoremap <silent> <C-f> <cmd>Telescope live_grep hidden=true<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
 nnoremap <silent> ;; <cmd>Telescope help_tags<cr>

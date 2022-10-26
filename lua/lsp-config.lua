@@ -29,7 +29,7 @@ local on_attach = function(client, bufnr)
 end
 
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 lspconfig.tsserver.setup {
  init_options = {
@@ -100,9 +100,9 @@ require'nvim-treesitter.configs'.setup {
 local null_ls = require('null-ls')
 null_ls.setup({
     sources = {
-        null_ls.builtins.diagnostics.eslint,
-        null_ls.builtins.code_actions.eslint,
-        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.diagnostics.eslint_d,
+        null_ls.builtins.code_actions.eslint_d,
+        null_ls.builtins.formatting.prettierd,
         null_ls.builtins.diagnostics.rubocop,
         null_ls.builtins.formatting.rubocop,
     },
