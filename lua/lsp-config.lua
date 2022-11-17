@@ -1,6 +1,19 @@
 local lspconfig = require("lspconfig")
 local cmp = require'cmp'
 
+-- require("typescript").setup({
+--     disable_commands = false, -- prevent the plugin from creating Vim commands
+--     debug = false, -- enable debug logging for commands
+--     go_to_source_definition = {
+--         fallback = true, -- fall back to standard LSP definition on failure
+--     },
+--     server = { -- pass options to lspconfig's setup method
+--         on_attach = ...,
+--     },
+-- })
+
+
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end  -- Mappings.
   local opts = { noremap=true, silent=true } 
@@ -29,7 +42,9 @@ local on_attach = function(client, bufnr)
 end
 
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+
 
 lspconfig.tsserver.setup {
  init_options = {
@@ -38,13 +53,20 @@ lspconfig.tsserver.setup {
    }
   },
   on_attach = function(client, bufnr) 
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
 
+    -- vim.lsp.buf.execute_command({command = "_typescript.organizeImports", arguments = {vim.fn.expand("%:p")}})
+    organize_imports = function()
+      vim.lsp.buf.execute_command({command = "_typescript.organizeImports", arguments = {vim.fn.expand("%:p")}})
+    end
+    
+    vim.api.nvim_create_user_command('OrganizeImports', organize_imports, {})
+    vim.keymap.set("n", "<leader>*", organize_imports, { noremap=true })
 
-    local ts_utils = require("nvim-lsp-ts-utils")
-    ts_utils.setup({})
-    ts_utils.setup_client(client)
+    -- local es_utils = require("nvim-lsp-ts-utils")
+    -- ts_utils.setup({})
+    -- ts_utils.setup_client(client)
 
     on_attach(client, bufnr)
 
@@ -54,8 +76,8 @@ lspconfig.tsserver.setup {
 
 lspconfig.solargraph.setup {
   on_attach=  function(client, bufnr) 
-    client.resolved_capabilities.document_formatting = false     
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.documentFormattingProvider = false     
+    client.server_capabilities.documentRangeFormattingProvider = false
 
     on_attach(client,bufnr)
   end,
