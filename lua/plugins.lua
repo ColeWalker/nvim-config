@@ -6,7 +6,8 @@ return require('packer').startup(function(use)
   -- LSP / Syntax highlighting / formatting
   use 'neovim/nvim-lspconfig'
   use 'jose-elias-alvarez/null-ls.nvim'
-  use 'jose-elias-alvarez/nvim-lsp-ts-utils'
+  -- use 'jose-elias-alvarez/nvim-lsp-ts-utils'
+  use 'jose-elias-alvarez/typescript.nvim'
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
@@ -49,6 +50,8 @@ return require('packer').startup(function(use)
 })
   use 'tpope/vim-commentary' 
   use {'ojroques/vim-oscyank', branch= 'main'}
+  use 'tpope/vim-unimpaired'
+  use 'xorid/swap-split.nvim'
 
   -- Smooth scroll
   use 'karb94/neoscroll.nvim'
@@ -110,4 +113,6 @@ return require('packer').startup(function(use)
   use 'rafalbromirski/vim-aurora'
   use 'tiagovla/tokyodark.nvim'
 
+  -- syntax files
+  use 'HerringtonDarkholme/yats.vim'
 end)
