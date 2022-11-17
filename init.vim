@@ -15,10 +15,11 @@ set signcolumn=yes
 " set showtabline=2
 set laststatus=3
 let mapleader=","
-set foldmethod=indent
+" set foldmethod=indent
 set foldexpr=nvim_treesitter#foldexpr()
-set nofoldenable
-" set foldmethod=syntax
+" set nofoldenable
+set foldmethod=expr
+set foldlevel=99
 " Plugins
 lua require("lsp-config")
 lua require("nvim-cmp-config")
@@ -63,6 +64,9 @@ nnoremap <silent>gl <cmd>LspDiagNext<CR>
 nnoremap <silent>gh <cmd>LspDiagPrev<CR>
 vnoremap <silent><leader>ca :<C-U><cmd>lua vim.lsp.buf.code_action()<CR>
 
+"SwapSplit
+nnoremap <C-W>p <cmd>SwapSplit<CR>
+
 " Telescope Settings
 nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true<cr>
 nnoremap <silent> <C-f> <cmd>Telescope live_grep hidden=true<cr>
@@ -77,8 +81,16 @@ nnoremap <silent> <leader>hm <cmd>lua require("harpoon.mark").add_file()<cr>
 nnoremap <silent> <leader>hv <cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>
 nnoremap <silent> <leader>hl <cmd>lua require("harpoon.ui").nav_next()<cr>
 nnoremap <silent> <leader>hh <cmd>lua require("harpoon.ui").nav_prev()<cr>
-nnoremap <Leader>o o<Esc>0"_D
-nnoremap <Leader>O O<Esc>0"_D
+" nnoremap <Leader>o o<Esc>0"_D
+" nmap <CR> :a<CR><CR>.<CR>
+" nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
+" nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
+" nnoremap <Leader>O O<Esc>0"_D
+
+" oscyank settings
+let g:oscyank_term = 'default'
+set re=0
+let g:yats_host_keyword = 1
 
 " Colorscheme
 let g:tokyodark_transparent_background = 0
