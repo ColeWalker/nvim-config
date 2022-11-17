@@ -154,11 +154,6 @@ _G.packer_plugins = {
     path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/nvim-coverage",
     url = "https://github.com/andythigpen/nvim-coverage"
   },
-  ["nvim-lsp-ts-utils"] = {
-    loaded = true,
-    path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/nvim-lsp-ts-utils",
-    url = "https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils"
-  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
@@ -215,6 +210,11 @@ _G.packer_plugins = {
     path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/silicon.nvim",
     url = "https://github.com/krivahtoo/silicon.nvim"
   },
+  ["swap-split.nvim"] = {
+    loaded = true,
+    path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/swap-split.nvim",
+    url = "https://github.com/xorid/swap-split.nvim"
+  },
   ["tagalong.vim"] = {
     loaded = true,
     path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/tagalong.vim",
@@ -234,6 +234,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/tokyodark.nvim",
     url = "https://github.com/tiagovla/tokyodark.nvim"
+  },
+  ["typescript.nvim"] = {
+    loaded = true,
+    path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/typescript.nvim",
+    url = "https://github.com/jose-elias-alvarez/typescript.nvim"
   },
   ["vim-aurora"] = {
     loaded = true,
@@ -290,6 +295,11 @@ _G.packer_plugins = {
     path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/vim-test",
     url = "https://github.com/vim-test/vim-test"
   },
+  ["vim-unimpaired"] = {
+    loaded = true,
+    path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/vim-unimpaired",
+    url = "https://github.com/tpope/vim-unimpaired"
+  },
   ["vim-vsnip"] = {
     loaded = true,
     path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/vim-vsnip",
@@ -309,6 +319,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/vscode-es7-javascript-react-snippets",
     url = "https://github.com/dsznajder/vscode-es7-javascript-react-snippets"
+  },
+  ["yats.vim"] = {
+    loaded = true,
+    path = "/Users/colewalker/.local/share/nvim/site/pack/packer/start/yats.vim",
+    url = "https://github.com/HerringtonDarkholme/yats.vim"
   }
 }
 
