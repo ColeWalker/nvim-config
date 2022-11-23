@@ -1,5 +1,5 @@
 vim.cmd [[packadd packer.nvim]]
-return require('packer').startup(function(use)
+return require('packer').startup({ function(use)
   -- Plugin Section
   use 'wbthomason/packer.nvim'
 
@@ -48,7 +48,12 @@ return require('packer').startup(function(use)
         })
     end
 })
+  use {
+    "windwp/nvim-autopairs",
+      config = function() require("nvim-autopairs").setup {} end
+  }
   use 'tpope/vim-commentary' 
+  use 'suy/vim-context-commentstring'
   use {'ojroques/vim-oscyank', branch= 'main'}
   use 'tpope/vim-unimpaired'
   use 'xorid/swap-split.nvim'
@@ -115,4 +120,4 @@ return require('packer').startup(function(use)
 
   -- syntax files
   use 'HerringtonDarkholme/yats.vim'
-end)
+end, config={git={subcommands={update='pull --ff-only --progress --rebase=true'}}}})

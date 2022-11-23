@@ -66,6 +66,7 @@ vnoremap <silent><leader>ca :<C-U><cmd>lua vim.lsp.buf.code_action()<CR>
 
 "SwapSplit
 nnoremap <C-W>p <cmd>SwapSplit<CR>
+nnoremap <leader>c <cmd>cclose<CR>
 
 " Telescope Settings
 nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true<cr>
@@ -81,6 +82,8 @@ nnoremap <silent> <leader>hm <cmd>lua require("harpoon.mark").add_file()<cr>
 nnoremap <silent> <leader>hv <cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>
 nnoremap <silent> <leader>hl <cmd>lua require("harpoon.ui").nav_next()<cr>
 nnoremap <silent> <leader>hh <cmd>lua require("harpoon.ui").nav_prev()<cr>
+" autocmd FileType javascript.jsx setlocal commentstring={/*\ %s\ */}
+" autocmd FileType javascript.tsx setlocal commentstring={/*\ %s\ */}
 " nnoremap <Leader>o o<Esc>0"_D
 " nmap <CR> :a<CR><CR>.<CR>
 " nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
