@@ -45,6 +45,10 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 
+lspconfig.cssls.setup {
+  capabilities=capabilities
+}
+
 
 lspconfig.tsserver.setup {
  init_options = {
