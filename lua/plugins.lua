@@ -4,6 +4,8 @@ return require('packer').startup({ function(use)
   use 'wbthomason/packer.nvim'
 
   -- LSP / Syntax highlighting / formatting
+  use 'joechrisellis/lsp-format-modifications.nvim'
+  use { "williamboman/mason.nvim" }
   use 'neovim/nvim-lspconfig'
   use 'jose-elias-alvarez/null-ls.nvim'
   -- use 'jose-elias-alvarez/nvim-lsp-ts-utils'
@@ -24,7 +26,13 @@ return require('packer').startup({ function(use)
   use 'michaeljsmith/vim-indent-object'
 
   -- use 'ptzz/lf.vim'
-
+  use 'ruby-formatter/rufo-vim'
+  use {
+    'goolord/alpha-nvim',
+    config = function ()
+        require'alpha'.setup(require'alpha.themes.dashboard'.config)
+    end
+}
   -- Git
   -- use 'akinsho/git-conflict.nvim'
   use 'tpope/vim-fugitive'
@@ -57,6 +65,18 @@ return require('packer').startup({ function(use)
   use {'ojroques/vim-oscyank', branch= 'main'}
   use 'tpope/vim-unimpaired'
   use 'xorid/swap-split.nvim'
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+        mode = "document_diagnostics"
+      }
+    end
+  }
 
   -- Smooth scroll
   use 'karb94/neoscroll.nvim'
@@ -75,6 +95,8 @@ return require('packer').startup({ function(use)
   use 'hrsh7th/cmp-nvim-lsp-document-symbol'
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use 'hrsh7th/nvim-cmp'
+
+  use({ 'mrjones2014/legendary.nvim' })
 
   -- snippet tool 
   use 'hrsh7th/cmp-vsnip'
@@ -101,8 +123,12 @@ return require('packer').startup({ function(use)
   use 'nvim-lualine/lualine.nvim'
 
   -- Which-key
+ 
   use 'liuchengxu/vim-which-key'
-
+  use {
+    'AckslD/nvim-whichkey-setup.lua',
+    requires = {'liuchengxu/vim-which-key'},
+  }
   -- Test coverage
   use 'andythigpen/nvim-coverage'
 
@@ -113,6 +139,7 @@ return require('packer').startup({ function(use)
   use 'AndrewRadev/tagalong.vim'
 
   -- color theme
+  use 'folke/lsp-colors.nvim'
   use 'Shatur/neovim-ayu'
   use 'bluz71/vim-nightfly-guicolors'
   use 'rafalbromirski/vim-aurora'

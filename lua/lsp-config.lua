@@ -60,6 +60,7 @@ lspconfig.tsserver.setup {
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
 
+    
     -- vim.lsp.buf.execute_command({command = "_typescript.organizeImports", arguments = {vim.fn.expand("%:p")}})
     organize_imports = function()
       vim.lsp.buf.execute_command({command = "_typescript.organizeImports", arguments = {vim.fn.expand("%:p")}})
@@ -80,7 +81,7 @@ lspconfig.tsserver.setup {
 
 lspconfig.solargraph.setup {
   on_attach=  function(client, bufnr) 
-    client.server_capabilities.documentFormattingProvider = false     
+    client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
 
     on_attach(client,bufnr)
@@ -128,10 +129,33 @@ null_ls.setup({
     sources = {
         null_ls.builtins.diagnostics.eslint_d,
         null_ls.builtins.code_actions.eslint_d,
-        null_ls.builtins.formatting.prettierd,
-        null_ls.builtins.diagnostics.rubocop,
-        null_ls.builtins.formatting.rubocop,
+        null_ls.builtins.formatting.prettierd.with({
+          disabled_filetypes = { "json" },
+        }),
+        null_ls.builtins.diagnostics.rubocop.with({
+          command="bundle",
+          args = vim.list_extend({'exec', 'rubocop'}, null_ls.builtins.diagnostics.rubocop._opts.args)
+        }),
+        null_ls.builtins.formatting.rubocop.with({
+          command="bundle",
+          args = vim.list_extend({'exec', 'rubocop'}, null_ls.builtins.formatting.rubocop._opts.args)
+        }),
     },
-    on_attach = on_attach,
+    on_attach = function(client, bufnr) 
+      -- client.name="null-ls-1"
+      on_attach(client,bufnr)
+    end,
 })
 
+-- null_ls.setup({
+--   sources = {
+--     null_ls.builtins.diagnostics.rubocop,
+--     null_ls.builtins.formatting.rubocop,
+--     null_ls.builtins.formatting.rufo
+--   },
+--   on_attach = function(client, bufnr)
+--     client.name="null-ls-2"
+--     print('hello')
+--     on_attach(client,bufnr)
+--   end,
+-- })

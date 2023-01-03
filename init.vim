@@ -24,6 +24,7 @@ set foldlevel=99
 lua require("lsp-config")
 lua require("nvim-cmp-config")
 lua require("telescope-config")
+lua require("mason").setup()
 " lua require("nvim-tree-config")
 lua require("lualine-config")
 " lua require("git-conflict").setup()
@@ -89,6 +90,14 @@ nnoremap <silent> <leader>hh <cmd>lua require("harpoon.ui").nav_prev()<cr>
 " nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
 " nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
 " nnoremap <Leader>O O<Esc>0"_D
+
+"Trouble
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap <leader>gR <cmd>TroubleToggle lsp_references<cr>
 
 " oscyank settings
 let g:oscyank_term = 'default'
