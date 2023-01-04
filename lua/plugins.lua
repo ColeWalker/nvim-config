@@ -2,6 +2,7 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup({ function(use)
   -- Plugin Section
   use 'wbthomason/packer.nvim'
+  use 'lewis6991/impatient.nvim'
 
   -- LSP / Syntax highlighting / formatting
   use 'joechrisellis/lsp-format-modifications.nvim'

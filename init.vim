@@ -21,6 +21,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 set foldmethod=expr
 set foldlevel=99
 " Plugins
+lua require('impatient')
 lua require("lsp-config")
 lua require("nvim-cmp-config")
 lua require("telescope-config")
