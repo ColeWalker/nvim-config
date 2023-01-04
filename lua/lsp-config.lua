@@ -86,7 +86,13 @@ lspconfig.solargraph.setup {
 
     on_attach(client,bufnr)
   end,
-  capabilities=capabilities
+  capabilities=capabilities,
+  settings = {
+    solargraph = {
+      autoformat=false,
+      formatting=false
+    }
+  }
 }
 
 require'nvim-treesitter.configs'.setup {
@@ -134,7 +140,8 @@ null_ls.setup({
         }),
         null_ls.builtins.diagnostics.rubocop.with({
           command="bundle",
-          args = vim.list_extend({'exec', 'rubocop'}, null_ls.builtins.diagnostics.rubocop._opts.args)
+          -- TODO: check if .rubocop-future exists, if not, just bundle exec rubocop 
+          args = vim.list_extend({'exec', 'rubocop', '-c', '.rubocop-future.yml'}, null_ls.builtins.diagnostics.rubocop._opts.args)
         }),
         null_ls.builtins.formatting.rubocop.with({
           command="bundle",
