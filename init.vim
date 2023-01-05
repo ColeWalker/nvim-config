@@ -1,6 +1,6 @@
 " Config Section
 " Vim Settings
-lua require("plugins")
+lua require("init")
 set expandtab
 set tabstop=2
 set shiftwidth=2
@@ -20,6 +20,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 " set nofoldenable
 set foldmethod=expr
 set foldlevel=99
+
 " Plugins
 lua require('impatient')
 lua require("lsp-config")
@@ -115,3 +116,4 @@ set termguicolors
 colorscheme tokyodark
 " colorscheme aurora
 " autocmd BufReadPost,FileReadPost * normal zR
+
