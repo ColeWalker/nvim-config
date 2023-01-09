@@ -30,6 +30,7 @@ vim.opt.rtp:prepend(lazypath)
   },
    'nvim-treesitter/nvim-treesitter-textobjects',
    'nvim-treesitter/nvim-treesitter-context',
+   'mrjones2014/nvim-ts-rainbow',
   --  'jbgutierrez/vim-better-comments'  
    'RRethy/vim-illuminate',
    {

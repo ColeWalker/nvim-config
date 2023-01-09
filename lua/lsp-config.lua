@@ -127,6 +127,10 @@ require'nvim-treesitter.configs'.setup {
         ["ab"] = "@block.outer",
       },
     },
+    rainbow={
+      enable=true,
+      extended_mode=true
+    }
   },
 }
 

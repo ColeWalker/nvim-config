@@ -28,6 +28,7 @@
   "nvim-treesitter": { "branch": "master", "commit": "b1569394614804aaad4e994731161f253ff61bcc" },
   "nvim-treesitter-context": { "branch": "master", "commit": "4842abe5bd1a0dc8b67387cc187edbabc40925ba" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "d816761ec1ea4a605689bc5f4111088459cf74d4" },
+  "nvim-ts-rainbow": { "branch": "master", "commit": "aa83e4967bf78f85ffd9a11e159900c7ea7e423b" },
   "nvim-web-devicons": { "branch": "master", "commit": "05e1072f63f6c194ac6e867b567e6b437d3d4622" },
   "nvim-whichkey-setup.lua": { "branch": "main", "commit": "b2df0761b8ba3fca31b7ae1b0afcad2f8a4e89f4" },
   "packer.nvim": { "branch": "master", "commit": "dac4088c70f4337c6c40d1a2751266a324765797" },
