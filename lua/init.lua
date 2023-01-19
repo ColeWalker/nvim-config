@@ -14,12 +14,11 @@ vim.opt.rtp:prepend(lazypath)
 
  require('lazy').setup({ 
   -- Plugin Section
-   'wbthomason/packer.nvim',
    'lewis6991/impatient.nvim',
 
   -- LSP / Syntax highlighting / formatting
-   'joechrisellis/lsp-format-modifications.nvim',
-   { "williamboman/mason.nvim" },
+   { 'joechrisellis/lsp-format-modifications.nvim' , lazy=true},
+   { "williamboman/mason.nvim", lazy=true},
    'neovim/nvim-lspconfig',
    'jose-elias-alvarez/null-ls.nvim',
   --  'jose-elias-alvarez/nvim-lsp-ts-utils'
@@ -41,19 +40,20 @@ vim.opt.rtp:prepend(lazypath)
    'michaeljsmith/vim-indent-object',
 
   --  'ptzz/lf.vim'
-   'ruby-formatter/rufo-vim',
+   { 'ruby-formatter/rufo-vim', lazy=true },
    {
     'goolord/alpha-nvim',
+    lazy=true,
     config = function ()
         require'alpha'.setup(require'alpha.themes.dashboard'.config)
     end
-},
+  },
   -- Git
   --  'akinsho/git-conflict.nvim'
-   'tpope/vim-fugitive',
+   { 'tpope/vim-fugitive' , lazy=true},
 
   -- Floating Terminal
-   'voldikss/vim-floaterm',
+   { 'voldikss/vim-floaterm' , lazy=true},
 
   --  'ruanyl/coverage.vim'
   -- File tree
@@ -61,7 +61,7 @@ vim.opt.rtp:prepend(lazypath)
   --  'kyazdani42/nvim-tree.lua'
   
   -- Actions
-   'machakann/vim-sandwich',
+   -- 'machakann/vim-sandwich',
   ({
     "kylechui/nvim-surround",
     version = "*", --  for stability; omit to  `main` branch for the latest features
@@ -79,7 +79,7 @@ vim.opt.rtp:prepend(lazypath)
    'suy/vim-context-commentstring',
    {'ojroques/vim-oscyank', branch= 'main'},
    'tpope/vim-unimpaired',
-   'xorid/swap-split.nvim',
+   { 'xorid/swap-split.nvim', lazy=true },
    {
     "folke/trouble.nvim",
     config = function()
@@ -96,10 +96,10 @@ vim.opt.rtp:prepend(lazypath)
    'karb94/neoscroll.nvim',
 
   -- Ruby
-   'tpope/vim-rails',
+   { 'tpope/vim-rails', lazy=true},
 
   -- Testing
-   'vim-test/vim-test',
+   { 'vim-test/vim-test', lazy=true},
 
     -- autocomplete nvim-cmp
    'hrsh7th/cmp-nvim-lsp',
@@ -110,7 +110,7 @@ vim.opt.rtp:prepend(lazypath)
    'hrsh7th/cmp-nvim-lsp-signature-help',
    'hrsh7th/nvim-cmp',
 
-  ({ 'mrjones2014/legendary.nvim' }),
+  { 'mrjones2014/legendary.nvim', lazy=true },
 
   -- snippet tool 
    'hrsh7th/cmp-vsnip',
@@ -123,7 +123,7 @@ vim.opt.rtp:prepend(lazypath)
   },
 
   -- Navigation
-   'ThePrimeagen/harpoon',
+   { 'ThePrimeagen/harpoon' , lazy=true},
    'unblevable/quick-scope' ,
    'ggandor/leap.nvim' ,
 
@@ -138,23 +138,24 @@ vim.opt.rtp:prepend(lazypath)
 
   -- Which-key
  
-   'liuchengxu/vim-which-key',
-    'AckslD/nvim-whichkey-setup.lua',
+   { 'liuchengxu/vim-which-key' , lazy=true},
+    { 'AckslD/nvim-whichkey-setup.lua' , lazy=true},
   -- Test coverage
-   'andythigpen/nvim-coverage',
+   { 'andythigpen/nvim-coverage' , lazy=true},
 
   -- fancy screenshots
-   {'krivahtoo/silicon.nvim', build = './install.sh'},
+   {'krivahtoo/silicon.nvim', build = './install.sh', lazy=true},
 
   --html auto rename tags
    'AndrewRadev/tagalong.vim',
 
   -- color theme
    'folke/lsp-colors.nvim',
-   'Shatur/neovim-ayu',
-   'bluz71/vim-nightfly-guicolors',
-   'rafalbromirski/vim-aurora',
-   'tiagovla/tokyodark.nvim',
+   { 'Shatur/neovim-ayu' , lazy=true},
+   -- current color theme should NOT be lazy loaded
+   { 'bluz71/vim-nightfly-guicolors' , lazy=false},
+   { 'rafalbromirski/vim-aurora' , lazy=true},
+   { 'tiagovla/tokyodark.nvim' , lazy=true},
 
   -- syntax files
    'HerringtonDarkholme/yats.vim'
