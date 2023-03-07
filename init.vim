@@ -16,13 +16,8 @@ set signcolumn=yes
 set laststatus=3
 let mapleader=","
 " set foldmethod=indent
-set foldexpr=nvim_treesitter#foldexpr()
-" set nofoldenable
-set foldmethod=expr
-set foldlevel=99
-
 " Plugins
-lua require('impatient')
+" lua require('impatient')
 lua require("lsp-config")
 lua require("nvim-cmp-config")
 lua require("telescope-config")
@@ -31,7 +26,6 @@ lua require("mason").setup()
 lua require("lualine-config")
 " lua require("git-conflict").setup()
 lua require('neoscroll').setup()
-lua require('lspsaga').init_lsp_saga()
 lua require('leap').set_default_keymaps()
 lua require("coverage").setup()
 
@@ -72,10 +66,11 @@ nnoremap <C-W>p <cmd>SwapSplit<CR>
 nnoremap <leader>c <cmd>cclose<CR>
 
 " Telescope Settings
-nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true<cr>
+" nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true<cr>
 nnoremap <silent> <C-f> <cmd>Telescope live_grep hidden=true<cr>
+nnoremap <silent> <C-p> <cmd>lua require('telescope.builtin').find_files({hidden=true})<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
-nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
+" nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
 nnoremap <silent> <leader>lr <cmd>Telescope lsp_references<cr>
 nnoremap <silent> <leader>lt <cmd>Telescope lsp_type_definitions<cr>
 " Nvim-tree Settings
@@ -105,6 +100,12 @@ nnoremap <leader>gR <cmd>TroubleToggle lsp_references<cr>
 let g:oscyank_term = 'default'
 set re=0
 let g:yats_host_keyword = 1
+
+" set foldexpr=nvim_treesitter#foldexpr()
+" set nofoldenable
+" set foldmethod=expr
+set foldlevel=99
+
 
 " Colorscheme
 let g:tokyodark_transparent_background = 0

@@ -49,16 +49,21 @@ require('lazy').setup({
   {
     "glepnir/lspsaga.nvim",
     branch = "main",
+    config = function()
+      require("lspsaga").setup({})
+    end,
+    event="BufRead"
   },
   -- Text objects
   'michaeljsmith/vim-indent-object',
 
   --  'ptzz/lf.vim'
-  { 'ruby-formatter/rufo-vim', lazy = true },
+  { 'ruby-formatter/rufo-vim', lazy = true, event="BufRead" },
 
   -- Git
+  { 'ruifm/gitlinker.nvim' },
   --  'akinsho/git-conflict.nvim'
-  { 'tpope/vim-fugitive', lazy = true, cmd = "Fug" },
+  { 'tpope/vim-fugitive' },
 
   -- Floating Terminal
   { 'voldikss/vim-floaterm' },
@@ -102,10 +107,10 @@ require('lazy').setup({
   'karb94/neoscroll.nvim',
 
   -- Ruby
-  { 'tpope/vim-rails', lazy = true },
+  { 'tpope/vim-rails', lazy = true, event="BufRead"},
 
   -- Testing
-  { 'vim-test/vim-test', lazy = true },
+  { 'vim-test/vim-test', lazy = true, event="BufRead" },
 
   -- autocomplete nvim-cmp
   'hrsh7th/cmp-nvim-lsp',
@@ -167,4 +172,5 @@ require('lazy').setup({
   'HerringtonDarkholme/yats.vim'
 })
 
-vim.cmd("command! Fug lua print()")
+vim.opt.showbreak = ">>>"
+-- vim.cmd("command! Fug lua print()")

@@ -149,6 +149,13 @@ require 'nvim-treesitter.configs'.setup {
   },
 }
 
+local vim = vim
+local opt = vim.o
+
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx", })
+
 local null_ls = require('null-ls')
 null_ls.setup({
   sources = {
