@@ -107,7 +107,9 @@ lspconfig.sumneko_lua.setup {
 }
 
 require 'nvim-treesitter.configs'.setup {
-  context_commentstring = true,
+  context_commentstring = {
+    enable = true
+  },
   ensure_installed = "all",
   highlight = {
     enable = true,

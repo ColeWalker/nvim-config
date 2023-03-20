@@ -18,8 +18,25 @@ require('lazy').setup({
 
   -- LSP / Syntax highlighting / formatting
   -- { 'joechrisellis/lsp-format-modifications.nvim' , lazy=true},
-  { "williamboman/mason.nvim", lazy = true },
-  'neovim/nvim-lspconfig',
+  { 
+    "williamboman/mason.nvim", 
+    lazy = true, 
+    config=function()
+      require( "mason" ).setup()
+    end
+  },
+  {
+    "williamboman/mason-lspconfig.nvim", 
+    config=function()
+      require( "mason-lspconfig" ).setup{
+        ensure_installed = { "tsserver", "solargraph" },
+        automatic_installation = false,
+      }
+    end
+  },
+  { 'neovim/nvim-lspconfig', config=function()
+      require('lsp-config')
+  end},
   'jose-elias-alvarez/null-ls.nvim',
   --  'jose-elias-alvarez/nvim-lsp-ts-utils'
   'jose-elias-alvarez/typescript.nvim',
@@ -29,14 +46,16 @@ require('lazy').setup({
   },
   'nvim-treesitter/nvim-treesitter-textobjects',
   'nvim-treesitter/nvim-treesitter-context',
-  'mrjones2014/nvim-ts-rainbow',
+  'HiPhish/nvim-ts-rainbow2',
   --  'jbgutierrez/vim-better-comments'
+   {'akinsho/bufferline.nvim', config = function()
+      require("bufferline").setup{}
+   end },
 
   {
     'RRethy/vim-illuminate',
     config = function()
       require 'illuminate'.configure {
-
         providers = {
           'lsp',
           'treesitter',
@@ -88,6 +107,7 @@ require('lazy').setup({
   },
   'tpope/vim-commentary',
   'suy/vim-context-commentstring',
+  'JoosepAlviste/nvim-ts-context-commentstring',
   { 'ojroques/vim-oscyank', branch = 'main' },
   'tpope/vim-unimpaired',
   -- { 'xorid/swap-split.nvim', lazy = true },
@@ -104,7 +124,9 @@ require('lazy').setup({
   },
 
   -- Smooth scroll
-  'karb94/neoscroll.nvim',
+  { 'karb94/neoscroll.nvim', config=function()
+    require('neoscroll').setup()
+  end },
 
   -- Ruby
   { 'tpope/vim-rails', lazy = true, event="BufRead"},
@@ -119,7 +141,9 @@ require('lazy').setup({
   'hrsh7th/cmp-cmdline',
   'hrsh7th/cmp-nvim-lsp-document-symbol',
   'hrsh7th/cmp-nvim-lsp-signature-help',
-  'hrsh7th/nvim-cmp',
+  { 'hrsh7th/nvim-cmp', config=function()
+require("nvim-cmp-config")
+  end },
 
   -- { 'mrjones2014/legendary.nvim', lazy = true },
 
@@ -136,23 +160,31 @@ require('lazy').setup({
   -- Navigation
   { 'ThePrimeagen/harpoon', lazy = true },
   'unblevable/quick-scope',
-  'ggandor/leap.nvim',
+  { 'ggandor/leap.nvim', config=function()
+    require('leap').set_default_keymaps()
+  end},
 
   -- telescope
   'nvim-lua/popup.nvim',
   'nvim-lua/plenary.nvim',
-  'nvim-telescope/telescope.nvim',
+  { 'nvim-telescope/telescope.nvim', config=function()
+    require("telescope-config")
+  end },
   'nvim-telescope/telescope-file-browser.nvim',
 
   -- Status line
-  'nvim-lualine/lualine.nvim',
+  { 'nvim-lualine/lualine.nvim', config=function()
+    require("lualine-config")
+  end },
 
   -- Which-key
 
   -- { 'liuchengxu/vim-which-key', lazy = true },
   -- { 'AckslD/nvim-whichkey-setup.lua', lazy = true },
   -- Test coverage
-  { 'andythigpen/nvim-coverage', lazy = true },
+  { 'andythigpen/nvim-coverage', config=function()
+    require('coverage').setup()
+  end},
 
   -- fancy screenshots
   { 'krivahtoo/silicon.nvim', build = './install.sh', lazy = true },
@@ -161,8 +193,22 @@ require('lazy').setup({
   'AndrewRadev/tagalong.vim',
 
   -- color theme
+  {
+  'uloco/bluloco.nvim',
+  lazy = false,
+  priority = 1000,
+  dependencies = { 'rktjmp/lush.nvim' },
+  config = function()
+    require("bluloco").setup({
+      terminal = vim.fn.has("gui_running") == 1,
+      transparent=true,
+    })
+    -- your optional config goes here, see below.
+  end,
+  },
   'folke/lsp-colors.nvim',
   { 'Shatur/neovim-ayu', lazy = true },
+  { "catppuccin/nvim", name = "catppuccin" },
   -- current color theme should NOT be lazy loaded
   { 'bluz71/vim-nightfly-guicolors', lazy = false },
   { 'rafalbromirski/vim-aurora', lazy = true },

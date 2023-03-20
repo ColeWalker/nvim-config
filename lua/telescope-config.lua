@@ -10,8 +10,12 @@ require('telescope').setup{
     file_ignore_patterns = { "node%_modules/.*", ".git/.*" },
     mappings = {
       n = {
-        ["q"] = actions.close
+        ["q"] = actions.close,
+        ['<c-t>'] = actions.delete_buffer
       },
+      i = {
+        ['<c-t>'] = actions.delete_buffer
+      }
     },
   }
 }

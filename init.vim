@@ -18,16 +18,16 @@ let mapleader=","
 " set foldmethod=indent
 " Plugins
 " lua require('impatient')
-lua require("lsp-config")
-lua require("nvim-cmp-config")
-lua require("telescope-config")
-lua require("mason").setup()
+" lua require("lsp-config")
+" lua require("nvim-cmp-config")
+" lua require("telescope-config")
+" lua require("mason").setup()
 " lua require("nvim-tree-config")
-lua require("lualine-config")
+" lua require("lualine-config")
 " lua require("git-conflict").setup()
-lua require('neoscroll').setup()
-lua require('leap').set_default_keymaps()
-lua require("coverage").setup()
+" lua require('neoscroll').setup()
+" lua require('leap').set_default_keymaps()
+" lua require("coverage").setup()
 
 " let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 "
@@ -74,7 +74,7 @@ nnoremap <silent> \\ <cmd>Telescope buffers<cr>
 nnoremap <silent> <leader>lr <cmd>Telescope lsp_references<cr>
 nnoremap <silent> <leader>lt <cmd>Telescope lsp_type_definitions<cr>
 " Nvim-tree Settings
-nnoremap <silent> <leader>nt <cmd>NvimTreeToggle<cr>
+" nnoremap <silent> <leader>nt <cmd>NvimTreeToggle<cr>
 " Harpoon Settings
 nnoremap <silent> <leader>hm <cmd>lua require("harpoon.mark").add_file()<cr>
 nnoremap <silent> <leader>hv <cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>
@@ -115,8 +115,8 @@ let g:tokyodark_transparent_background = 0
 " let g:nightflyTransparent = v:true
 set termguicolors
 " set background=dark
-" colorscheme tokyodark
+colorscheme bluloco
 " colorscheme aurora
-colorscheme nightfly
+" colorscheme catppuccin-mocha
 " autocmd BufReadPost,FileReadPost * normal zR
 

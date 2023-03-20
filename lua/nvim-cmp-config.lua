@@ -1,5 +1,9 @@
  -- Setup nvim-cmp.
-  local cmp = require'cmp'
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+local cmp = require'cmp'
+
+
+
 
    cmp.setup({
     snippet = {
@@ -78,3 +82,8 @@
       { name = 'cmdline' }
     })
   })
+
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
