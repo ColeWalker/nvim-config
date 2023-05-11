@@ -49,7 +49,7 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 
 "lspsaga
 nnoremap <silent>K <Cmd>Lspsaga hover_doc<CR>
-inoremap <silent> <C-k> <Cmd>LspSignatureHelp<CR>
+inoremap <silent> <C-h> <Cmd>LspSignatureHelp<CR>
 nnoremap <silent> <C-k> <Cmd>LspDiagLine<CR>
 " nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
 nnoremap <silent>gr <cmd>LspRename<CR>

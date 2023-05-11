@@ -41,6 +41,13 @@ require('lazy').setup({
   --  'jose-elias-alvarez/nvim-lsp-ts-utils'
   'jose-elias-alvarez/typescript.nvim',
   {
+      'barrett-ruth/import-cost.nvim',
+      build = 'sh install.sh yarn',
+      config = function()
+        require('import-cost').setup()
+      end
+  },
+  {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate'
   },

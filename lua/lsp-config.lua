@@ -66,16 +66,16 @@ require("typescript").setup({
 
 lspconfig.solargraph.setup {
   on_attach = function(client, bufnr)
-    -- client.server_capabilities.documentFormattingProvider = false
-    -- client.server_capabilities.documentRangeFormattingProvider = false
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
 
     on_attach(client, bufnr)
   end,
   capabilities = capabilities,
   settings = {
     solargraph = {
-      -- autoformat = false,
-      -- formatting = false
+      autoformat = false,
+      formatting = false
     }
   }
 }
@@ -175,7 +175,7 @@ null_ls.setup({
     }),
     null_ls.builtins.formatting.rubocop.with({
       command = "bundle",
-      args = vim.list_extend({ 'exec', 'rubocop', '-a' }, null_ls.builtins.formatting.rubocop._opts.args)
+      args = vim.list_extend({ 'exec', 'rubocop', '-c', '.rubocop-future.yml' }, null_ls.builtins.formatting.rubocop._opts.args)
     }),
   },
   on_attach = function(client, bufnr)
