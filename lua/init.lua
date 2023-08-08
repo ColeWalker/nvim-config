@@ -29,7 +29,7 @@ require('lazy').setup({
     "williamboman/mason-lspconfig.nvim", 
     config=function()
       require( "mason-lspconfig" ).setup{
-        ensure_installed = { "tsserver", "solargraph" },
+        ensure_installed = { "tsserver", "ruby_ls"},
         automatic_installation = false,
       }
     end
@@ -87,7 +87,7 @@ require('lazy').setup({
   { 'ruby-formatter/rufo-vim', lazy = true, event="BufRead" },
 
   -- Git
-  { 'ruifm/gitlinker.nvim' },
+  
   --  'akinsho/git-conflict.nvim'
   { 'tpope/vim-fugitive' },
 
@@ -160,9 +160,10 @@ require("nvim-cmp-config")
   'hrsh7th/vim-vsnip-integ',
 
   -- snippets
-  { 'dsznajder/vscode-es7-javascript-react-snippets',
-    build = 'yarn install --frozen-lockfile && yarn compile'
-  },
+  { "rafamadriz/friendly-snippets" },
+  -- { 'ults-io/vscode-react-javascript-snippets',
+    -- build = 'yarn install --frozen-lockfile && yarn compile'
+  -- },
 
   -- Navigation
   { 'ThePrimeagen/harpoon', lazy = true },
@@ -185,6 +186,13 @@ require("nvim-cmp-config")
   end },
 
   -- Which-key
+  { 
+    'ruifm/gitlinker.nvim',  
+    config = function()
+      require("gitlinker").setup()
+      vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<cr>', {silent = true})
+    end
+  },
 
   -- { 'liuchengxu/vim-which-key', lazy = true },
   -- { 'AckslD/nvim-whichkey-setup.lua', lazy = true },

@@ -63,22 +63,68 @@ require("typescript").setup({
   server = ts_options
 })
 
+_timers = {}
+local function setup_diagnostics(client, buffer)
+  if require("vim.lsp.diagnostic")._enable then
+    return
+  end
 
-lspconfig.solargraph.setup {
-  on_attach = function(client, bufnr)
-    client.server_capabilities.documentFormattingProvider = false
-    client.server_capabilities.documentRangeFormattingProvider = false
+  local diagnostic_handler = function()
+    local params = vim.lsp.util.make_text_document_params(buffer)
+    client.request("textDocument/diagnostic", { textDocument = params }, function(err, result)
+      if err then
+        local err_msg = string.format("diagnostics error - %s", vim.inspect(err))
+        vim.lsp.log.error(err_msg)
+      end
+      if not result then
+        return
+      end
+      vim.lsp.diagnostic.on_publish_diagnostics(
+        nil,
+        vim.tbl_extend("keep", params, { diagnostics = result.items }),
+        { client_id = client.id }
+      )
+    end)
+  end
 
-    on_attach(client, bufnr)
+  diagnostic_handler() -- to request diagnostics on buffer when first attaching
+
+  vim.api.nvim_buf_attach(buffer, false, {
+    on_lines = function()
+      if _timers[buffer] then
+        vim.fn.timer_stop(_timers[buffer])
+      end
+      _timers[buffer] = vim.fn.timer_start(200, diagnostic_handler)
+    end,
+    on_detach = function()
+      if _timers[buffer] then
+        vim.fn.timer_stop(_timers[buffer])
+      end
+    end,
+  })
+end
+
+lspconfig.ruby_ls.setup({
+  on_attach = function(client, buffer)
+    setup_diagnostics(client, buffer)
   end,
-  capabilities = capabilities,
-  settings = {
-    solargraph = {
-      autoformat = false,
-      formatting = false
-    }
-  }
-}
+})
+
+-- lspconfig.solargraph.setup {
+--   on_attach = function(client, bufnr)
+--     client.server_capabilities.documentFormattingProvider = false
+--     client.server_capabilities.documentRangeFormattingProvider = false
+
+--     on_attach(client, bufnr)
+--   end,
+--   capabilities = capabilities,
+--   settings = {
+--     solargraph = {
+--       autoformat = false,
+--       formatting = false
+--     }
+--   }
+-- }
 -- lspconfig.sumneko_lua.setup {
 --   settings = {
 --     Lua = {
