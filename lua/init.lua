@@ -29,7 +29,7 @@ require('lazy').setup({
     "williamboman/mason-lspconfig.nvim", 
     config=function()
       require( "mason-lspconfig" ).setup{
-        ensure_installed = { "tsserver", "ruby_ls", "cssls", "cssmodules_ls" },
+        ensure_installed = { "tsserver", "cssls", "cssmodules_ls" },
         automatic_installation = false,
       }
     end
@@ -102,9 +102,6 @@ require('lazy').setup({
         })
     end
   },
-  -- 'jose-elias-alvarez/null-ls.nvim',
-  --  'jose-elias-alvarez/nvim-lsp-ts-utils'
-  -- 'jose-elias-alvarez/typescript.nvim',
   {
       'barrett-ruth/import-cost.nvim',
       build = 'sh install.sh yarn',
