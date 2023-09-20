@@ -53,15 +53,18 @@ ts_options = {
   end,
   capabilities = capabilities,
 }
+lspconfig.tsserver.setup(
+  ts_options
+)
 
-require("typescript").setup({
-  disable_commands = false, -- prevent the plugin from creating Vim commands
-  debug = false, -- enable debug logging for commands
-  go_to_source_definition = {
-    fallback = true, -- fall back to standard LSP definition on failure
-  },
-  server = ts_options
-})
+-- require("typescript").setup({
+--   disable_commands = false, -- prevent the plugin from creating Vim commands
+--   debug = false, -- enable debug logging for commands
+--   go_to_source_definition = {
+--     fallback = true, -- fall back to standard LSP definition on failure
+--   },
+--   server = ts_options
+-- })
 
 _timers = {}
 local function setup_diagnostics(client, buffer)
@@ -110,6 +113,17 @@ lspconfig.ruby_ls.setup({
   end,
 })
 
+require'lspconfig'.cssmodules_ls.setup {
+    -- provide your on_attach to bind keymappings
+    -- optionally
+    on_attach = function(client, bufnr) 
+      on_attach(client, bufnr)
+    end
+    -- init_options = {
+    --     camelCase = 'dashes',
+    -- },
+}
+
 -- lspconfig.solargraph.setup {
 --   on_attach = function(client, bufnr)
 --     client.server_capabilities.documentFormattingProvider = false
@@ -152,6 +166,7 @@ lspconfig.ruby_ls.setup({
 
 -- }
 
+require"nvim-treesitter.install".compilers = {"gcc"}
 require 'nvim-treesitter.configs'.setup {
   context_commentstring = {
     enable = true
@@ -161,10 +176,10 @@ require 'nvim-treesitter.configs'.setup {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
-  rainbow = {
-    enable = true,
-    extended_mode = true
-  },
+  -- rainbow = {
+  --   enable = true,
+  --   extended_mode = true
+  -- },
   textobjects = {
     lsp_interop = {
       enable = true,
@@ -204,31 +219,32 @@ opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx", })
 
-local null_ls = require('null-ls')
-null_ls.setup({
-  sources = {
-    null_ls.builtins.diagnostics.eslint_d,
-    null_ls.builtins.code_actions.eslint_d,
-    null_ls.builtins.formatting.prettierd.with({
-      -- disabled_filetypes = { "json" },
-    }),
-    null_ls.builtins.formatting.shfmt,
-    null_ls.builtins.diagnostics.rubocop.with({
-      command = "bundle",
-      -- TODO: check if .rubocop-future exists, if not, just bundle exec rubocop
-      args = vim.list_extend({ 'exec', 'rubocop', '-c', '.rubocop-future.yml' },
-        null_ls.builtins.diagnostics.rubocop._opts.args)
-    }),
-    null_ls.builtins.formatting.rubocop.with({
-      command = "bundle",
-      args = vim.list_extend({ 'exec', 'rubocop', '-c', '.rubocop-future.yml' }, null_ls.builtins.formatting.rubocop._opts.args)
-    }),
-  },
-  on_attach = function(client, bufnr)
-    -- client.name="null-ls-1"
-    on_attach(client, bufnr)
-  end,
-})
+
+
+-- local null_ls = require('null-ls')
+-- null_ls.setup({
+--   sources = {
+--     null_ls.builtins.diagnostics.eslint_d,
+--     null_ls.builtins.code_actions.eslint_d,
+--     null_ls.builtins.formatting.prettierd.with({
+--     }),
+--     null_ls.builtins.formatting.shfmt,
+--     null_ls.builtins.diagnostics.rubocop.with({
+--       command = "bundle",
+--       -- TODO: check if .rubocop-future exists, if not, just bundle exec rubocop
+--       args = vim.list_extend({ 'exec', 'rubocop', '-c', '.rubocop-future.yml' },
+--         null_ls.builtins.diagnostics.rubocop._opts.args)
+--     }),
+--     null_ls.builtins.formatting.rubocop.with({
+--       command = "bundle",
+--       args = vim.list_extend({ 'exec', 'rubocop', '-c', '.rubocop-future.yml' }, null_ls.builtins.formatting.rubocop._opts.args)
+--     }),
+--   },
+--   on_attach = function(client, bufnr)
+--     -- client.name="null-ls-1"
+--     on_attach(client, bufnr)
+--   end,
+-- })
 
 -- null_ls.setup({
 --   sources = {

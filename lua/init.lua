@@ -11,10 +11,10 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+vim.loader.enable()
 
 require('lazy').setup({
   -- Plugin Section
-  'lewis6991/impatient.nvim',
 
   -- LSP / Syntax highlighting / formatting
   -- { 'joechrisellis/lsp-format-modifications.nvim' , lazy=true},
@@ -29,7 +29,7 @@ require('lazy').setup({
     "williamboman/mason-lspconfig.nvim", 
     config=function()
       require( "mason-lspconfig" ).setup{
-        ensure_installed = { "tsserver", "ruby_ls"},
+        ensure_installed = { "tsserver", "ruby_ls", "cssls", "cssmodules_ls" },
         automatic_installation = false,
       }
     end
@@ -37,9 +37,74 @@ require('lazy').setup({
   { 'neovim/nvim-lspconfig', config=function()
       require('lsp-config')
   end},
-  'jose-elias-alvarez/null-ls.nvim',
+  {
+    'mfussenegger/nvim-lint',
+    config=function()
+      local lint = require("lint")
+        lint.linters_by_ft = {
+            javascript = {
+                "eslint_d"
+            },
+            typescript = {
+                "eslint_d"
+            },
+            javascriptreact = {
+                "eslint_d"
+            },
+            typescriptreact = {
+                "eslint_d"
+            },
+            ruby = {
+              "rubocop"
+            }
+        }
+        vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
+    end
+  },
+  {
+    "mhartington/formatter.nvim",
+    config = function()
+        local formatter = require("formatter")
+        local default_formatters = require("formatter.defaults")
+        local prettierd = default_formatters.prettierd
+        local rubocop = default_formatters.rubocop
+        local stylua = default_formatters.stylua
+        formatter.setup({
+            filetype = {
+                javascript = {
+                    prettierd
+                },
+                javascriptreact = {
+                    prettierd
+                },
+                typescript = {
+                    prettierd
+                },
+                typescriptreact = {
+                    prettierd
+                },
+                css = {
+                  prettierd
+                },
+                lua = {
+                    stylua
+                },
+                ruby = {
+                  rubocop
+                }
+
+            }
+
+        })
+    end
+  },
+  -- 'jose-elias-alvarez/null-ls.nvim',
   --  'jose-elias-alvarez/nvim-lsp-ts-utils'
-  'jose-elias-alvarez/typescript.nvim',
+  -- 'jose-elias-alvarez/typescript.nvim',
   {
       'barrett-ruth/import-cost.nvim',
       build = 'sh install.sh yarn',
@@ -53,7 +118,8 @@ require('lazy').setup({
   },
   'nvim-treesitter/nvim-treesitter-textobjects',
   'nvim-treesitter/nvim-treesitter-context',
-  'HiPhish/nvim-ts-rainbow2',
+  -- 'HiPhish/nvim-ts-rainbow2',
+
   --  'jbgutierrez/vim-better-comments'
    {'akinsho/bufferline.nvim', config = function()
       require("bufferline").setup{}
@@ -132,7 +198,13 @@ require('lazy').setup({
 
   -- Smooth scroll
   { 'karb94/neoscroll.nvim', config=function()
-    require('neoscroll').setup()
+    require('neoscroll').setup({
+    })
+    local t = {}
+    t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '125'}}
+    t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '125'}}
+    
+    require('neoscroll.config').set_mappings(t) 
   end },
 
   -- Ruby
@@ -173,7 +245,7 @@ require("nvim-cmp-config")
   end},
 
   -- telescope
-  'nvim-lua/popup.nvim',
+  -- 'nvim-lua/popup.nvim',
   'nvim-lua/plenary.nvim',
   { 'nvim-telescope/telescope.nvim', config=function()
     require("telescope-config")
@@ -187,10 +259,16 @@ require("nvim-cmp-config")
 
   -- Which-key
   { 
-    'ruifm/gitlinker.nvim',  
+    'ruifm/gitlinker.nvim',
     config = function()
-      require("gitlinker").setup()
-      vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<cr>', {silent = true})
+      require("gitlinker").setup({
+        opts = {
+          action_callback=require"gitlinker.actions".open_in_browser
+        },
+        mappings = "<leader>gb"
+
+      })
+
     end
   },
 
@@ -235,3 +313,5 @@ require("nvim-cmp-config")
 
 vim.opt.showbreak = ">>>"
 -- vim.cmd("command! Fug lua print()")
+-- vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<cr>', {silent = true})
+

@@ -96,6 +96,12 @@ nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap <leader>gR <cmd>TroubleToggle lsp_references<cr>
 
+" Format
+augroup FormatAutogroup
+  autocmd!
+  autocmd BufWritePost * FormatWrite
+augroup END
+
 " oscyank settings
 let g:oscyank_term = 'default'
 set re=0
@@ -119,4 +125,6 @@ colorscheme bluloco
 " colorscheme aurora
 " colorscheme catppuccin-mocha
 " autocmd BufReadPost,FileReadPost * normal zR
+"
 
+lua vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<cr>', {silent = true})
