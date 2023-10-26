@@ -16,24 +16,18 @@ set signcolumn=yes
 set laststatus=3
 let mapleader=","
 " set foldmethod=indent
-set foldexpr=nvim_treesitter#foldexpr()
-" set nofoldenable
-set foldmethod=expr
-set foldlevel=99
-
 " Plugins
-lua require('impatient')
-lua require("lsp-config")
-lua require("nvim-cmp-config")
-lua require("telescope-config")
-lua require("mason").setup()
+" lua require('impatient')
+" lua require("lsp-config")
+" lua require("nvim-cmp-config")
+" lua require("telescope-config")
+" lua require("mason").setup()
 " lua require("nvim-tree-config")
-lua require("lualine-config")
+" lua require("lualine-config")
 " lua require("git-conflict").setup()
-lua require('neoscroll').setup()
-lua require('lspsaga').init_lsp_saga()
-lua require('leap').set_default_keymaps()
-lua require("coverage").setup()
+" lua require('neoscroll').setup()
+" lua require('leap').set_default_keymaps()
+" lua require("coverage").setup()
 
 " let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 "
@@ -55,7 +49,7 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 
 "lspsaga
 nnoremap <silent>K <Cmd>Lspsaga hover_doc<CR>
-inoremap <silent> <C-k> <Cmd>LspSignatureHelp<CR>
+inoremap <silent> <C-h> <Cmd>LspSignatureHelp<CR>
 nnoremap <silent> <C-k> <Cmd>LspDiagLine<CR>
 " nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
 nnoremap <silent>gr <cmd>LspRename<CR>
@@ -72,14 +66,15 @@ nnoremap <C-W>p <cmd>SwapSplit<CR>
 nnoremap <leader>c <cmd>cclose<CR>
 
 " Telescope Settings
-nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true<cr>
+" nnoremap <silent> <C-p> <cmd>Telescope find_files hidden=true<cr>
 nnoremap <silent> <C-f> <cmd>Telescope live_grep hidden=true<cr>
+nnoremap <silent> <C-p> <cmd>lua require('telescope.builtin').find_files({hidden=true})<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
-nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
+" nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
 nnoremap <silent> <leader>lr <cmd>Telescope lsp_references<cr>
 nnoremap <silent> <leader>lt <cmd>Telescope lsp_type_definitions<cr>
 " Nvim-tree Settings
-nnoremap <silent> <leader>nt <cmd>NvimTreeToggle<cr>
+" nnoremap <silent> <leader>nt <cmd>NvimTreeToggle<cr>
 " Harpoon Settings
 nnoremap <silent> <leader>hm <cmd>lua require("harpoon.mark").add_file()<cr>
 nnoremap <silent> <leader>hv <cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>
@@ -101,21 +96,35 @@ nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap <leader>gR <cmd>TroubleToggle lsp_references<cr>
 
+" Format
+augroup FormatAutogroup
+  autocmd!
+  autocmd BufWritePost * FormatWrite
+augroup END
+
 " oscyank settings
 let g:oscyank_term = 'default'
 set re=0
 let g:yats_host_keyword = 1
 
+" set foldexpr=nvim_treesitter#foldexpr()
+" set nofoldenable
+" set foldmethod=expr
+set foldlevel=99
+
+
 " Colorscheme
-let g:tokyodark_transparent_background = 0
+" let g:tokyodark_transparent_background = 0
 " let g:tokyodark_enable_italic_comment = 1
 " let g:tokyodark_enable_italic = 1
 " let g:tokyodark_color_gamma = "1.0"
-let g:nightflyTransparent = v:true
+" let g:nightflyTransparent = v:true
 set termguicolors
 " set background=dark
-" colorscheme tokyodark
+colorscheme bluloco
 " colorscheme aurora
-colorscheme nightfly
+" colorscheme catppuccin-mocha
 " autocmd BufReadPost,FileReadPost * normal zR
+"
 
+lua vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<cr>', {silent = true})
