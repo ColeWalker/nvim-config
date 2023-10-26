@@ -18,6 +18,17 @@ require('lazy').setup({
 
   -- LSP / Syntax highlighting / formatting
   -- { 'joechrisellis/lsp-format-modifications.nvim' , lazy=true},
+  -- {"github/copilot.vim"},
+  { "zbirenbaum/copilot.lua", 
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end,
+  },
   { 
     "williamboman/mason.nvim", 
     lazy = true, 
@@ -88,6 +99,9 @@ require('lazy').setup({
                     prettierd
                 },
                 css = {
+                  prettierd
+                },
+                scss = {
                   prettierd
                 },
                 lua = {
@@ -171,10 +185,10 @@ require('lazy').setup({
       })
     end
   }),
-  {
-    "windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
-  },
+  -- {
+  --   "windwp/nvim-autopairs",
+  --   config = function() require("nvim-autopairs").setup {} end
+  -- },
   'tpope/vim-commentary',
   'suy/vim-context-commentstring',
   'JoosepAlviste/nvim-ts-context-commentstring',
@@ -213,6 +227,12 @@ require('lazy').setup({
   -- autocomplete nvim-cmp
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-buffer',
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function ()
+      require("copilot_cmp").setup()
+    end
+  },
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-cmdline',
   'hrsh7th/cmp-nvim-lsp-document-symbol',
