@@ -19,6 +19,25 @@ require('lazy').setup({
   -- LSP / Syntax highlighting / formatting
   -- { 'joechrisellis/lsp-format-modifications.nvim' , lazy=true},
   -- {"github/copilot.vim"},
+  {
+    "folke/zen-mode.nvim",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  },
+  "nvim-tree/nvim-web-devicons",
+  -- {
+  -- 'stevearc/oil.nvim',
+  -- opts = {},
+  -- -- Optional dependencies
+  -- dependencies = {  },
+  -- config = function()
+  --   require("oil").setup()
+  -- end
+
+-- },
   { "zbirenbaum/copilot.lua", 
     cmd = "Copilot",
     event = "InsertEnter",
@@ -65,9 +84,9 @@ require('lazy').setup({
             typescriptreact = {
                 "eslint_d"
             },
-            ruby = {
-              "rubocop"
-            }
+            -- ruby = {
+            --   "rubocop"
+            -- }
         }
         vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
@@ -107,9 +126,26 @@ require('lazy').setup({
                 lua = {
                     stylua
                 },
-                ruby = {
-                  rubocop
-                }
+                 ruby = {
+                  function()
+                    return {
+                      exe = 'bundle exec rubocop',
+                      args = {
+                        '--fix-layout',
+                        '--stdin',
+                        util.escape_path(util.get_current_buffer_file_name()),
+                        '--format',
+                        'files',
+                        '|',
+                        "awk 'f; /^====================$/{f=1}'",
+                      },
+                      stdin = true,
+                    }
+                end,
+      },
+                -- ruby = {
+                --   rubocop
+                -- }
 
             }
 
@@ -136,18 +172,13 @@ require('lazy').setup({
       require("bufferline").setup{}
    end },
 
-  {
-    'RRethy/vim-illuminate',
-    config = function()
-      require 'illuminate'.configure {
-        providers = {
-          'lsp',
-          'treesitter',
-          'regex',
-        },
-        delay = 100,
-      }
-    end
+  { 'echasnovski/mini.nvim', version = false, config = function()
+      mini_files = require('mini.files')
+      require('mini.cursorword').setup()
+      mini_files.setup()
+
+      -- keybinds
+      vim.keymap.set('n', '<leader>f', mini_files.open() )
   },
   {
     "glepnir/lspsaga.nvim",
@@ -157,15 +188,7 @@ require('lazy').setup({
     end,
     event="BufRead"
   },
-  -- Text objects
-  'michaeljsmith/vim-indent-object',
 
-  --  'ptzz/lf.vim'
-  { 'ruby-formatter/rufo-vim', lazy = true, event="BufRead" },
-
-  -- Git
-  
-  --  'akinsho/git-conflict.nvim'
   { 'tpope/vim-fugitive' },
 
   -- Floating Terminal
@@ -274,7 +297,6 @@ require("nvim-cmp-config")
     require("lualine-config")
   end },
 
-  -- Which-key
   { 
     'ruifm/gitlinker.nvim',
     config = function()
@@ -297,11 +319,18 @@ require("nvim-cmp-config")
   end},
 
   -- fancy screenshots
-  { 'krivahtoo/silicon.nvim', build = './install.sh', lazy = true },
+  -- { 'krivahtoo/silicon.nvim', build = './install.sh', lazy = true },
 
   --html auto rename tags
-  'AndrewRadev/tagalong.vim',
+  -- 'AndrewRadev/tagalong.vim',
 
+--   {
+--     'windwp/nvim-ts-autotag',
+--     config=function()
+--       require('nvim-ts-autotag').setup()
+--     end
+
+--   },
   -- color theme
   {
   'uloco/bluloco.nvim',
