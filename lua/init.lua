@@ -1,5 +1,19 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-vim.g.mapleader = " "
+vim.g.mapleader = ","
+vim.o.expandtab = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.linebreak = true
+vim.o.incsearch = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.signcolumn="yes"
+vim.o.laststatus=3
+vim.o.termguicolors = true
+vim.o.foldlevel= 99
+
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -16,8 +30,6 @@ vim.loader.enable()
 require('lazy').setup({
   -- Plugin Section
 
-  -- LSP / Syntax highlighting / formatting
-  -- { 'joechrisellis/lsp-format-modifications.nvim' , lazy=true},
   -- {"github/copilot.vim"},
   {
     "folke/zen-mode.nvim",
@@ -178,10 +190,11 @@ require('lazy').setup({
       mini_files.setup()
 
       -- keybinds
-      vim.keymap.set('n', '<leader>f', mini_files.open() )
+      vim.keymap.set("n", "<leader>xf", function() mini_files.open() end)
+    end
   },
   {
-    "glepnir/lspsaga.nvim",
+    "nvimdev/lspsaga.nvim",
     branch = "main",
     config = function()
       require("lspsaga").setup({})
@@ -221,12 +234,20 @@ require('lazy').setup({
   {
     "folke/trouble.nvim",
     config = function()
-      require("trouble").setup {
+      trouble = require("trouble")
+      trouble.setup {
         -- your configuration comes here
         -- or leave it empty to  the default settings
         -- refer to the configuration section below
         mode = "document_diagnostics"
       }
+      vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
+      vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
+      vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
+      vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
+      vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
+      vim.keymap.set("n", "xs", function() require("trouble").toggle("lsp_references") end)
+
     end
   },
 
@@ -278,7 +299,16 @@ require("nvim-cmp-config")
   -- },
 
   -- Navigation
-  { 'ThePrimeagen/harpoon', lazy = true },
+  { 'ThePrimeagen/harpoon', config = function()
+    harpoon_ui = require("harpoon.ui")
+    harpoon_mark = require("harpoon.mark")
+
+    vim.keymap.set("n", "<leader>hm", function() harpoon_mark.add_file() end)
+    vim.keymap.set("n", "<leader>hv", function() harpoon_ui.toggle_quick_menu() end)
+    vim.keymap.set("n", "<leader>hl", function() harpoon_ui.nav_next() end)
+    vim.keymap.set("n", "<leader>hh", function() harpoon_ui.nav_prev() end)
+  end
+  },
   'unblevable/quick-scope',
   { 'ggandor/leap.nvim', config=function()
     require('leap').set_default_keymaps()
@@ -357,7 +387,8 @@ require("nvim-cmp-config")
   'HerringtonDarkholme/yats.vim'
 })
 
-vim.opt.showbreak = ">>>"
+-- vim.opt.showbreak = ">>>"
+vim.opt.showbreak = " 󱞪 "
 -- vim.cmd("command! Fug lua print()")
 -- vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<cr>', {silent = true})
 
