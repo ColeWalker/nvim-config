@@ -166,15 +166,21 @@ lspconfig.luals.setup {
 
 }
 
+require "treesitter-context".setup {
+    enable=true,
+    max_lines=1,
+    min_window_height=5,
+    trim_scope="inner",
+    multiline_threshold=1,
+}
+
 require "nvim-treesitter.install".compilers = { "gcc" }
 require 'nvim-treesitter.configs'.setup {
   context_commentstring = {
-    enable = false,
-    max_lines=1,
-    min_window_height=5,
-    trim_scope="outer",
-    multiline_threshold=0,
+    enable = true,
+    
   },
+  
   ensure_installed = "all",
   highlight = {
     enable = true,

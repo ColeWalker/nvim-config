@@ -13,6 +13,9 @@ vim.o.signcolumn="yes"
 vim.o.laststatus=3
 vim.o.termguicolors = true
 vim.o.foldlevel= 99
+vim.o.completeopt = "menu,menuone,noselect"
+
+vim.keymap.set("n", "<leader>q", function() vim.cmd("ccl") end)
 
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -31,14 +34,14 @@ require('lazy').setup({
   -- Plugin Section
 
   -- {"github/copilot.vim"},
-  {
-    "folke/zen-mode.nvim",
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    }
-  },
+  -- {
+  --   "folke/zen-mode.nvim",
+  --   opts = {
+  --     -- your configuration comes here
+  --     -- or leave it empty to use the default settings
+  --     -- refer to the configuration section below
+  --   }
+  -- },
   "nvim-tree/nvim-web-devicons",
   -- {
   -- 'stevearc/oil.nvim',
@@ -191,6 +194,7 @@ require('lazy').setup({
 
       -- keybinds
       vim.keymap.set("n", "<leader>xf", function() mini_files.open() end)
+      vim.keymap.set("n", "<leader>f", function() mini_files.open(vim.api.nvim_buf_get_name(0), false) end)
     end
   },
   {
@@ -198,6 +202,8 @@ require('lazy').setup({
     branch = "main",
     config = function()
       require("lspsaga").setup({})
+      vim.keymap.set('n','<leader>t', '<cmd>Lspsaga term_toggle<cr>')
+      vim.keymap.set('t','<leader>t', '<cmd>Lspsaga term_toggle<cr>')
     end,
     event="BufRead"
   },
@@ -246,7 +252,7 @@ require('lazy').setup({
       vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
       vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
       vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
-      vim.keymap.set("n", "xs", function() require("trouble").toggle("lsp_references") end)
+      vim.keymap.set("n", "<leader>xs", function() require("trouble").toggle("lsp_references") end)
 
     end
   },
