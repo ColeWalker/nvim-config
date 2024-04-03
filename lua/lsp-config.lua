@@ -113,15 +113,15 @@ lspconfig.ruby_ls.setup({
   end,
 })
 
-require'lspconfig'.cssmodules_ls.setup {
-    -- provide your on_attach to bind keymappings
-    -- optionally
-    on_attach = function(client, bufnr) 
-      on_attach(client, bufnr)
-    end
-    -- init_options = {
-    --     camelCase = 'dashes',
-    -- },
+require 'lspconfig'.cssmodules_ls.setup {
+  -- provide your on_attach to bind keymappings
+  -- optionally
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+  end
+  -- init_options = {
+  --     camelCase = 'dashes',
+  -- },
 }
 
 -- lspconfig.solargraph.setup {
@@ -139,38 +139,48 @@ require'lspconfig'.cssmodules_ls.setup {
 --     }
 --   }
 -- }
--- lspconfig.sumneko_lua.setup {
---   settings = {
---     Lua = {
---       runtime = {
---         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
---         version = 'LuaJIT',
---       },
---       diagnostics = {
---         -- Get the language server to recognize the `vim` global
---         globals = { 'vim' },
---       },
---       workspace = {
---         -- Make the server aware of Neovim runtime files
---         library = vim.api.nvim_get_runtime_file("", true),
---       },
---       -- Do not send telemetry data containing a randomized but unique identifier
---       telemetry = {
---         enable = false,
---       },
---     },
---   },
---   on_attach = function(client, bufnr)
---     on_attach(client, bufnr)
---   end,
+lspconfig.luals.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = { 'vim' },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+  end,
 
--- }
+}
 
-require"nvim-treesitter.install".compilers = {"gcc"}
+require "treesitter-context".setup {
+    enable=true,
+    max_lines=1,
+    min_window_height=5,
+    trim_scope="inner",
+    multiline_threshold=1,
+}
+
+require "nvim-treesitter.install".compilers = { "gcc" }
 require 'nvim-treesitter.configs'.setup {
   context_commentstring = {
-    enable = true
+    enable = true,
+    
   },
+  
   ensure_installed = "all",
   highlight = {
     enable = true,

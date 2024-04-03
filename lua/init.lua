@@ -1,5 +1,22 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-vim.g.mapleader = " "
+vim.g.mapleader = ","
+vim.o.expandtab = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.linebreak = true
+vim.o.incsearch = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.signcolumn="yes"
+vim.o.laststatus=3
+vim.o.termguicolors = true
+vim.o.foldlevel= 99
+vim.o.completeopt = "menu,menuone,noselect"
+
+vim.keymap.set("n", "<leader>q", function() vim.cmd("ccl") end)
+
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -16,9 +33,26 @@ vim.loader.enable()
 require('lazy').setup({
   -- Plugin Section
 
-  -- LSP / Syntax highlighting / formatting
-  -- { 'joechrisellis/lsp-format-modifications.nvim' , lazy=true},
   -- {"github/copilot.vim"},
+  -- {
+  --   "folke/zen-mode.nvim",
+  --   opts = {
+  --     -- your configuration comes here
+  --     -- or leave it empty to use the default settings
+  --     -- refer to the configuration section below
+  --   }
+  -- },
+  "nvim-tree/nvim-web-devicons",
+  -- {
+  -- 'stevearc/oil.nvim',
+  -- opts = {},
+  -- -- Optional dependencies
+  -- dependencies = {  },
+  -- config = function()
+  --   require("oil").setup()
+  -- end
+
+-- },
   { "zbirenbaum/copilot.lua", 
     cmd = "Copilot",
     event = "InsertEnter",
@@ -65,9 +99,9 @@ require('lazy').setup({
             typescriptreact = {
                 "eslint_d"
             },
-            ruby = {
-              "rubocop"
-            }
+            -- ruby = {
+            --   "rubocop"
+            -- }
         }
         vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
@@ -107,9 +141,26 @@ require('lazy').setup({
                 lua = {
                     stylua
                 },
-                ruby = {
-                  rubocop
-                }
+                 ruby = {
+                  function()
+                    return {
+                      exe = 'bundle exec rubocop',
+                      args = {
+                        '--fix-layout',
+                        '--stdin',
+                        util.escape_path(util.get_current_buffer_file_name()),
+                        '--format',
+                        'files',
+                        '|',
+                        "awk 'f; /^====================$/{f=1}'",
+                      },
+                      stdin = true,
+                    }
+                end,
+      },
+                -- ruby = {
+                --   rubocop
+                -- }
 
             }
 
@@ -136,36 +187,27 @@ require('lazy').setup({
       require("bufferline").setup{}
    end },
 
-  {
-    'RRethy/vim-illuminate',
-    config = function()
-      require 'illuminate'.configure {
-        providers = {
-          'lsp',
-          'treesitter',
-          'regex',
-        },
-        delay = 100,
-      }
+  { 'echasnovski/mini.nvim', version = false, config = function()
+      mini_files = require('mini.files')
+      require('mini.cursorword').setup()
+      mini_files.setup()
+
+      -- keybinds
+      vim.keymap.set("n", "<leader>xf", function() mini_files.open() end)
+      vim.keymap.set("n", "<leader>f", function() mini_files.open(vim.api.nvim_buf_get_name(0), false) end)
     end
   },
   {
-    "glepnir/lspsaga.nvim",
+    "nvimdev/lspsaga.nvim",
     branch = "main",
     config = function()
       require("lspsaga").setup({})
+      vim.keymap.set('n','<leader>t', '<cmd>Lspsaga term_toggle<cr>')
+      vim.keymap.set('t','<leader>t', '<cmd>Lspsaga term_toggle<cr>')
     end,
     event="BufRead"
   },
-  -- Text objects
-  'michaeljsmith/vim-indent-object',
 
-  --  'ptzz/lf.vim'
-  { 'ruby-formatter/rufo-vim', lazy = true, event="BufRead" },
-
-  -- Git
-  
-  --  'akinsho/git-conflict.nvim'
   { 'tpope/vim-fugitive' },
 
   -- Floating Terminal
@@ -198,12 +240,20 @@ require('lazy').setup({
   {
     "folke/trouble.nvim",
     config = function()
-      require("trouble").setup {
+      trouble = require("trouble")
+      trouble.setup {
         -- your configuration comes here
         -- or leave it empty to  the default settings
         -- refer to the configuration section below
         mode = "document_diagnostics"
       }
+      vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
+      vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
+      vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
+      vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
+      vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
+      vim.keymap.set("n", "<leader>xs", function() require("trouble").toggle("lsp_references") end)
+
     end
   },
 
@@ -255,7 +305,16 @@ require("nvim-cmp-config")
   -- },
 
   -- Navigation
-  { 'ThePrimeagen/harpoon', lazy = true },
+  { 'ThePrimeagen/harpoon', config = function()
+    harpoon_ui = require("harpoon.ui")
+    harpoon_mark = require("harpoon.mark")
+
+    vim.keymap.set("n", "<leader>hm", function() harpoon_mark.add_file() end)
+    vim.keymap.set("n", "<leader>hv", function() harpoon_ui.toggle_quick_menu() end)
+    vim.keymap.set("n", "<leader>hl", function() harpoon_ui.nav_next() end)
+    vim.keymap.set("n", "<leader>hh", function() harpoon_ui.nav_prev() end)
+  end
+  },
   'unblevable/quick-scope',
   { 'ggandor/leap.nvim', config=function()
     require('leap').set_default_keymaps()
@@ -274,7 +333,6 @@ require("nvim-cmp-config")
     require("lualine-config")
   end },
 
-  -- Which-key
   { 
     'ruifm/gitlinker.nvim',
     config = function()
@@ -297,11 +355,18 @@ require("nvim-cmp-config")
   end},
 
   -- fancy screenshots
-  { 'krivahtoo/silicon.nvim', build = './install.sh', lazy = true },
+  -- { 'krivahtoo/silicon.nvim', build = './install.sh', lazy = true },
 
   --html auto rename tags
-  'AndrewRadev/tagalong.vim',
+  -- 'AndrewRadev/tagalong.vim',
 
+--   {
+--     'windwp/nvim-ts-autotag',
+--     config=function()
+--       require('nvim-ts-autotag').setup()
+--     end
+
+--   },
   -- color theme
   {
   'uloco/bluloco.nvim',
@@ -328,7 +393,8 @@ require("nvim-cmp-config")
   'HerringtonDarkholme/yats.vim'
 })
 
-vim.opt.showbreak = ">>>"
+-- vim.opt.showbreak = ">>>"
+vim.opt.showbreak = " 󱞪 "
 -- vim.cmd("command! Fug lua print()")
 -- vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<cr>', {silent = true})
 
